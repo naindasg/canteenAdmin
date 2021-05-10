@@ -26,7 +26,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     EditText mealIDView, nameView, descriptionView, ingredientsView, priceView, urlView;
     Button saveButton;
-    DatabaseReference ref;
+    DatabaseReference ref;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
