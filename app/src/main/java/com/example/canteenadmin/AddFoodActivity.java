@@ -126,7 +126,7 @@ public class AddFoodActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(url)) {
-                    urlView.setError("Please enter a url");
+                    urlView.setError("Please enter a url or type N/A");
                     return;
                 } else {
                     meal.setUrl(url);
