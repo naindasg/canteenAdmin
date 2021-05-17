@@ -1,5 +1,6 @@
 package com.example.canteenadmin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ public class CustomerNamesActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<CustomerNames> options = new FirebaseRecyclerOptions.Builder<CustomerNames>().setQuery(ref, CustomerNames.class).build();
         adapter = new CustomerNamesAdapter(options);
         recyclerView.setAdapter(adapter);
+
 
         //Swipe the order to delete it
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.RIGHT, ItemTouchHelper.RIGHT) {

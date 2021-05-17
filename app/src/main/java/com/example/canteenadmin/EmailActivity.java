@@ -14,6 +14,10 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/*
+    This class is based on the following link:
+    https://codinginflow.com/tutorials/android/email-intent
+ */
 public class EmailActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextSubject;
