@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class AddFoodActivity extends AppCompatActivity {
 
     EditText mealIDView, nameView, descriptionView, ingredientsView, priceView, urlView;
@@ -51,7 +53,7 @@ public class AddFoodActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String mealID = null;
                 if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         mealID = dataSnapshot.child("mealID").getValue().toString();
                     }
                     int mealIDInt = Integer.parseInt(mealID);
@@ -65,6 +67,10 @@ public class AddFoodActivity extends AppCompatActivity {
                 Log.d("AddFoodActivity", "onCancelled: " + error.getMessage());
             }
         });
+
+        checkIfMealAlreadyExists();
+
+
 
         //Handle the "Save" button
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -81,11 +87,22 @@ public class AddFoodActivity extends AppCompatActivity {
                 String price = priceView.getText().toString();
                 String url = urlView.getText().toString();
 
+
+                boolean mealExists = false;
+                for (int i = 0; i < mealArray.size(); i++) {
+                    if (mealArray.get(i).equals(mealID)) {
+                        mealExists = true;
+                    }
+                }
+
                 if (TextUtils.isEmpty(mealID)) {
                     mealIDView.setError("Please enter a meal ID");
                     return;
                 } else if (!validateMealID(mealID)) {
                     mealIDView.setError("Please enter a number for a mealID");
+                    return;
+                } else if (mealExists) {
+                    mealIDView.setError("Please enter a UNIQUE number for a mealID");
                     return;
                 } else {
                     meal.setMealID(mealID);
@@ -132,8 +149,14 @@ public class AddFoodActivity extends AppCompatActivity {
                     meal.setUrl(url);
                 }
 
-                ref.child("meal" + mealID).setValue(meal);
-                Toast.makeText(AddFoodActivity.this, "Meal added successfully", Toast.LENGTH_LONG).show();
+                //if mealID < 10 is used because firebase starts from 01 (instead of 1)
+                if (Integer.parseInt(mealID) < 10) {
+                    ref.child("meal0" + mealID).setValue(meal);
+                    Toast.makeText(AddFoodActivity.this, "Meal added successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    ref.child("meal" + mealID).setValue(meal);
+                    Toast.makeText(AddFoodActivity.this, "Meal added successfully", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -187,4 +210,30 @@ public class AddFoodActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    ArrayList<String> mealArray = new ArrayList<String>();
+
+    public void checkIfMealAlreadyExists() {
+        ref = FirebaseDatabase.getInstance().getReference("/meals");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String mealID = null;
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        mealID = dataSnapshot.child("mealID").getValue().toString();
+                        mealArray.add(mealID);
+                        Log.d("TAG", "onDataChange: " + mealID);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("AddFoodActivity", "onCancelled: " + error.getMessage());
+            }
+        });
+    }
+
+
 }
