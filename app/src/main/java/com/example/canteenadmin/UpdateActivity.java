@@ -86,33 +86,34 @@ public class UpdateActivity extends AppCompatActivity {
                     nameView.setError("Please enter a name");
                     return;
                 } else {
-                    hashMap.put("name", name);
+                    hashMap.put("name", name.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(description)) {
                     descriptionView.setError("Please enter a description");
                     return;
                 } else {
-                    hashMap.put("description", description);
+                    hashMap.put("description", description.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(ingredients)) {
                     ingredientsView.setError("Please enter some ingredients or type N/A");
                     return;
                 } else {
-                    hashMap.put("ingredients", ingredients);
+                    hashMap.put("ingredients", ingredients.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(price)) {
                     priceView.setError("Please enter a price");
                     return;
+                } else if (price.contains("£")) {
+                    priceView.setError("Please dont enter a £ sign");
+                    return;
+                } else if (!validatePrice(price)) {
+                    priceView.setError("Please enter a price in the format 10.00 or 10");
+                    return;
                 } else {
-                    if (price.contains("£")) {
-                        priceView.setError("Please dont enter a £ sign");
-                        return;
-                    } else {
-                        hashMap.put("price", price);
-                    }
+                    hashMap.put("price", price);
                 }
 
                 if (TextUtils.isEmpty(url)) {
@@ -176,5 +177,15 @@ public class UpdateActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean validatePrice(String price) {
+        try {
+            Double.parseDouble(price);
+        } catch (Exception e) {
+            Log.d("TAG", "validatePrice: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

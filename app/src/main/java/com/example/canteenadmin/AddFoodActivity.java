@@ -84,6 +84,9 @@ public class AddFoodActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(mealID)) {
                     mealIDView.setError("Please enter a meal ID");
                     return;
+                } else if (!validateMealID(mealID)) {
+                    mealIDView.setError("Please enter a number for a mealID");
+                    return;
                 } else {
                     meal.setMealID(mealID);
                 }
@@ -92,43 +95,35 @@ public class AddFoodActivity extends AppCompatActivity {
                     nameView.setError("Please enter a name");
                     return;
                 } else {
-                    meal.setName(name);
+                    meal.setName(name.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(description)) {
                     descriptionView.setError("Please enter a description");
                     return;
                 } else {
-                    meal.setDescription(description);
+                    meal.setDescription(description.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(ingredients)) {
                     ingredientsView.setError("Please enter some ingredients or type N/A");
                     return;
                 } else {
-                    meal.setIngredients(ingredients);
+                    meal.setIngredients(ingredients.toLowerCase());
                 }
 
                 if (TextUtils.isEmpty(price)) {
                     priceView.setError("Please enter a price");
                     return;
-                } else {
-                    if (price.contains("£")) {
-                        priceView.setError("Please dont enter a £ sign");
-                        return;
-                    } else {
-                        meal.setPrice(price);
-                    }
-                }
-
-
-                if (TextUtils.isEmpty(price)) {
-                    priceView.setError("Please enter a price");
+                } else if (price.contains("£")) {
+                    priceView.setError("Please dont enter a £ sign");
+                    return;
+                } else if (!validatePrice(price)) {
+                    priceView.setError("Please enter a price in the format 10.00 or 10");
                     return;
                 } else {
                     meal.setPrice(price);
                 }
-
 
                 if (TextUtils.isEmpty(url)) {
                     urlView.setError("Please enter a url");
@@ -171,5 +166,25 @@ public class AddFoodActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean validateMealID(String mealID) {
+        try {
+            Integer.parseInt(mealID);
+        } catch (Exception e) {
+            Log.d("TAG", "validateMealId: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePrice(String price) {
+        try {
+            Double.parseDouble(price);
+        } catch (Exception e) {
+            Log.d("TAG", "validatePrice: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
