@@ -40,17 +40,87 @@ import static org.hamcrest.Matchers.is;
 public class DeleteFoodFromMenuTest {
 
     @Rule
-    public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
+    public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<MenuActivity>(MenuActivity.class);
 
     @Test
-    public void deleteFoodTest() {
+    public void deleteFoodFromMenuTest2() {
+
+
+        ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.addFood), withText("Add food to the menu"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        materialButton3.perform(click());
+
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.name),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatEditText3.perform(replaceText("producttodelete"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText4 = onView(
+                allOf(withId(R.id.description),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                3),
+                        isDisplayed()));
+        appCompatEditText4.perform(replaceText("test"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.ingredients),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatEditText5.perform(replaceText("test"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.price),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatEditText6.perform(replaceText("1.00"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText7 = onView(
+                allOf(withId(R.id.url),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                6),
+                        isDisplayed()));
+        appCompatEditText7.perform(replaceText("n/a"), closeSoftKeyboard());
+
+        ViewInteraction materialButton4 = onView(
+                allOf(withId(R.id.saveButton), withText("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                7),
+                        isDisplayed()));
+        materialButton4.perform(click());
 
         try {
             Thread.sleep(8000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
 
@@ -73,6 +143,23 @@ public class DeleteFoodFromMenuTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         ViewInteraction recyclerView = onView(
                 allOf(withId(R.id.menu_recyclerview),
@@ -81,7 +168,7 @@ public class DeleteFoodFromMenuTest {
                                 0)));
         recyclerView.perform(actionOnItemAtPosition(25, click()));
 
-        ViewInteraction materialButton3 = onView(
+        ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.deleteButton), withText("Delete"),
                         childAtPosition(
                                 childAtPosition(
@@ -89,15 +176,7 @@ public class DeleteFoodFromMenuTest {
                                         7),
                                 1),
                         isDisplayed()));
-        materialButton3.perform(click());
-
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
+        materialButton5.perform(click());
 
         try {
             Thread.sleep(1000);
@@ -118,12 +197,29 @@ public class DeleteFoodFromMenuTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.menu_recyclerview)).perform(ViewActions.swipeUp());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.foodName), withText("water"),
+                allOf(withId(R.id.foodName), withText("pepsi"),
                         withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
-        textView.check(matches(withText("water")));
+        textView.check(matches(withText("pepsi")));
     }
 
     private static Matcher<View> childAtPosition(
