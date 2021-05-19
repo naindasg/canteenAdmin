@@ -153,9 +153,13 @@ public class AddFoodActivity extends AppCompatActivity {
                 if (Integer.parseInt(mealID) < 10) {
                     ref.child("meal0" + mealID).setValue(meal);
                     Toast.makeText(AddFoodActivity.this, "Meal added successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
                 } else {
                     ref.child("meal" + mealID).setValue(meal);
                     Toast.makeText(AddFoodActivity.this, "Meal added successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
                 }
             }
         });
