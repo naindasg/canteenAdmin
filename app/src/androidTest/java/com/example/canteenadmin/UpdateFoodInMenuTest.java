@@ -36,18 +36,14 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class UpdateFoodInMenuTest {
 
-    /*
-        Make sure that the first item on the menu is called "pizza" and not "supreme pizza", as we are updating the name "pizza" to "supreme pizza" in this test.
-     */
-
     @Rule
     public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
 
     @Test
-    public void updateFoodTest() {
+    public void addFoodToMenuTest2() {
 
         try {
-            Thread.sleep(8000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -65,7 +61,6 @@ public class UpdateFoodInMenuTest {
             e.printStackTrace();
         }
 
-
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.nameu), withText("pizza"),
                         childAtPosition(
@@ -75,6 +70,12 @@ public class UpdateFoodInMenuTest {
                                 2),
                         isDisplayed()));
         appCompatEditText3.perform(replaceText("supreme pizza"));
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.nameu), withText("supreme pizza"),
@@ -86,7 +87,7 @@ public class UpdateFoodInMenuTest {
                         isDisplayed()));
         appCompatEditText4.perform(closeSoftKeyboard());
 
-        ViewInteraction materialButton2 = onView(
+        ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.saveButtonu), withText("Save"),
                         childAtPosition(
                                 childAtPosition(
@@ -94,20 +95,68 @@ public class UpdateFoodInMenuTest {
                                         7),
                                 0),
                         isDisplayed()));
-        materialButton2.perform(click());
+        materialButton3.perform(click());
 
         try {
-            Thread.sleep(8000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        ViewInteraction recyclerView2 = onView(
+                allOf(withId(R.id.menu_recyclerview),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)));
+        recyclerView2.perform(actionOnItemAtPosition(0, click()));
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.nameu), withText("supreme pizza"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatEditText5.perform(replaceText("pizza"));
+
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.nameu), withText("pizza"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatEditText6.perform(closeSoftKeyboard());
+
+        ViewInteraction materialButton4 = onView(
+                allOf(withId(R.id.saveButtonu), withText("Save"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                        7),
+                                0),
+                        isDisplayed()));
+        materialButton4.perform(click());
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.foodName), withText("supreme pizza"),
+                allOf(withId(R.id.foodName), withText("pizza"),
                         withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
-        textView.check(matches(withText("supreme pizza")));
+        textView.check(matches(withText("pizza")));
     }
 
     private static Matcher<View> childAtPosition(
