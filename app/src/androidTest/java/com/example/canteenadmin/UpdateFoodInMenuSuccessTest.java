@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class UpdateFoodInMenuTest {
+public class UpdateFoodInMenuSuccessTest {
 
     @Rule
     public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
