@@ -39,11 +39,18 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class DeleteFoodFromMenuTest {
 
+    /*
+    The deleteFoodFromMenuTest will only work if the menu is in its original form (i.e. with Pepsi as the last item on the menu).
+    If Pepsi is not the last item on the menu, please delete as many meals as necessary until Pepsi is the last item on the menu.
+    This is necessary because the deleteFoodFromMenuTest follows a set of instructions and the Espresso
+    test is not flexible enough to deviate from these instructions.
+     */
+
     @Rule
     public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<MenuActivity>(MenuActivity.class);
 
     @Test
-    public void deleteFoodFromMenuTest2() {
+    public void deleteFoodFromMenuTest() {
 
 
         ViewInteraction materialButton3 = onView(

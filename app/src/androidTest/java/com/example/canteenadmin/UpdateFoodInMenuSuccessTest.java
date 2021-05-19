@@ -40,7 +40,7 @@ public class UpdateFoodInMenuSuccessTest {
     public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
 
     @Test
-    public void addFoodToMenuTest2() {
+    public void addFoodToMenuTest() {
 
         try {
             Thread.sleep(4000);
