@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +27,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     EditText mealIDView, nameView, descriptionView, ingredientsView, priceView, urlView;
     Button saveButton;
-    DatabaseReference ref;//
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +68,6 @@ public class AddFoodActivity extends AppCompatActivity {
         });
 
         checkIfMealAlreadyExists();
-
-
 
         //Handle the "Save" button
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +176,7 @@ public class AddFoodActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout, menu);
 
-        MenuItem logout = menu.findItem(R.id.logoutFromMealDetail);
+        MenuItem logout = menu.findItem(R.id.logoutFromActivity);
 
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -195,6 +192,7 @@ public class AddFoodActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Check that the user enters a correct mealID
     public boolean validateMealID(String mealID) {
         try {
             Integer.parseInt(mealID);
@@ -205,6 +203,7 @@ public class AddFoodActivity extends AppCompatActivity {
         return true;
     }
 
+    //Check that the user enters a price
     public boolean validatePrice(String price) {
         try {
             Double.parseDouble(price);
@@ -215,8 +214,8 @@ public class AddFoodActivity extends AppCompatActivity {
         return true;
     }
 
+    //Check if meal already exists
     ArrayList<String> mealArray = new ArrayList<String>();
-
     public void checkIfMealAlreadyExists() {
         ref = FirebaseDatabase.getInstance().getReference("/meals");
         ref.addValueEventListener(new ValueEventListener() {
@@ -238,6 +237,5 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.example.canteenadmin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -109,7 +108,7 @@ public class CustomerNamesActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout, menu);
 
-        MenuItem logout = menu.findItem(R.id.logoutFromMealDetail);
+        MenuItem logout = menu.findItem(R.id.logoutFromActivity);
 
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

@@ -2,7 +2,6 @@ package com.example.canteenadmin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,7 +66,7 @@ public class EmailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout, menu);
 
-        MenuItem logout = menu.findItem(R.id.logoutFromMealDetail);
+        MenuItem logout = menu.findItem(R.id.logoutFromActivity);
 
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
